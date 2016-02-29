@@ -1,0 +1,55 @@
+{
+  "name": "<%= moduleName %>",
+  "version": "0.0.0",
+  "description": "My <%= superb %> module",
+  "license": "MIT",
+  "repository": "<%= githubUsername %>/<%= moduleName %>",
+  "author": {
+    "name": "<%= name %>",
+    "email": "<%= email %>",
+    "url": "<%= humanizedWebsite %>"
+  },<% if (cli) { %>
+  "bin": "cli.js",<% } %>
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && <% if (babel) { %>npm run build && <% } %>ava<% if (nyc) { %> && nyc ava<% } %>"<% if (babel) { %>,
+    "build": "babel lib --out-dir=dist --optional=runtime"<% } %><% if (coveralls) { %>,
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"<% } %>
+  },
+  "files": [<% if (babel) { %>
+    "dist"<% if (cli) { %>,<% } %>
+  <% } else { %>
+    "index.js"<% if (cli) { %>,<% } %>
+  <% } %><% if (cli) { %>
+    "cli.js"<% } %>
+  ],
+  "keywords": [<% if (cli) { %>
+    "cli-app",
+    "cli",<% } %>
+    ""
+  ],
+  "dependencies": {<% if (cli && babel) { %>
+    "meow": "^3.7.0",
+    "babel-runtime": "^5.8.29"
+    <% } else if (cli) { %>
+    "meow": "^3.7.0"
+    <% } else if (babel) { %>
+    "babel-runtime": "^5.8.29"
+    <% } %>
+  },
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "xo": "^0.12.1"<% if (babel) { %>,
+    "babel": "^5.8.23"<% } %> <% if (nyc) { %>,
+    "nyc": "^5.6.0"<% } %><% if (coveralls) { %>,
+    "coveralls": "^2.11.6"<% } %>
+  }<% if (babel) { %>,
+  "xo": {
+    "esnext": true,
+    "ignores": [
+      "dist/**"
+  ]}
+  <% } %>
+}
