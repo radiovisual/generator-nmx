@@ -1,7 +1,7 @@
 {
   "name": "generator-nmx",
   "version": "1.0.0",
-  "description": "> Scaffold out a large node module with options to include nyc, coveralls, babel, etc",
+  "description": "Scaffold out a node module with options to include babel, nyc and coveralls.",
   "license": "MIT",
   "repository": "radiovisual/generator-nmx",
   "author": {
