@@ -60,6 +60,7 @@ test.serial('CLI option', async () => {
 	assert.fileContent('package.json', /"bin":/);
 	assert.fileContent('package.json', /"bin": "cli.js"/);
 	assert.fileContent('package.json', /"meow"/);
+	assert.noFileContent('package.json', /"update-notifier"\: "*"/);
 });
 
 test.serial('babel option', async () => {
@@ -83,7 +84,7 @@ test.serial('babel option', async () => {
 	assert.fileContent('package.json', /"build": "babel lib --out-dir=dist --optional=runtime"/);
 	assert.fileContent('.gitignore', /dist/);
 	assert.fileContent('package.json', /"xo": {[\r\n\s]*"esnext": true,[\r\n\s]*"ignores": \[[\r\n\s]*"dist\/\*\*"/g);
-
+	assert.noFileContent('package.json', /"update-notifier"\: "*"/);
 	assert.noFile('index.js');
 });
 
@@ -105,6 +106,7 @@ test.serial('nyc option', async () => {
 	assert.fileContent('package.json', /"test": "xo && ava && nyc ava"/);
 	assert.fileContent('.gitignore', /\.nyc_output/);
 	assert.fileContent('.gitignore', /coverage/);
+	assert.noFileContent('package.json', /"update-notifier"\: "*"/);
 });
 
 test.serial('coveralls option', async () => {
@@ -125,6 +127,7 @@ test.serial('coveralls option', async () => {
 	assert.fileContent('package.json', /"coveralls": "nyc report --reporter=text-lcov | coveralls"/);
 	assert.fileContent('readme.md', /\[!\[Coverage Status\]\(https:\/\/coveralls\.io\/repos\/github\/test\/test\/badge\.svg\?branch=master\)\]\(https:\/\/coveralls\.io\/github\/test\/test\?branch=master\)/);
 	assert.fileContent('.travis.yml', /after_success: npm run coveralls/);
+	assert.noFileContent('package.json', /"update-notifier"\: "*"/);
 });
 
 test.serial('update notifier option', async () => {
