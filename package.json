@@ -1,6 +1,6 @@
 {
   "name": "generator-nmx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold out a node module with options to include babel, nyc and coveralls.",
   "license": "MIT",
   "repository": "radiovisual/generator-nmx",
@@ -37,7 +37,9 @@
     "github",
     "babel",
     "es6",
-    "coveralls"
+    "coveralls",
+    "update",
+    "notify"
   ],
   "dependencies": {
     "humanize-url": "^1.0.1",
