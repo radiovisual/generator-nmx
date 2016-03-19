@@ -19,7 +19,8 @@ test.serial('generates expected files', async () => {
 		cli: false,
 		babel: false,
 		nyc: false,
-		coveralls: false
+		coveralls: false,
+		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
@@ -49,7 +50,8 @@ test.serial('CLI option', async () => {
 		cli: true,
 		babel: false,
 		nyc: false,
-		coveralls: false
+		coveralls: false,
+		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
@@ -68,7 +70,8 @@ test.serial('babel option', async () => {
 		cli: false,
 		babel: true,
 		nyc: false,
-		coveralls: false
+		coveralls: false,
+		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
@@ -92,7 +95,8 @@ test.serial('nyc option', async () => {
 		cli: false,
 		babel: false,
 		nyc: true,
-		coveralls: false
+		coveralls: false,
+		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
@@ -111,7 +115,8 @@ test.serial('coveralls option', async () => {
 		cli: false,
 		babel: false,
 		nyc: false,
-		coveralls: true
+		coveralls: true,
+		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
@@ -120,4 +125,24 @@ test.serial('coveralls option', async () => {
 	assert.fileContent('package.json', /"coveralls": "nyc report --reporter=text-lcov | coveralls"/);
 	assert.fileContent('readme.md', /\[!\[Coverage Status\]\(https:\/\/coveralls\.io\/repos\/github\/test\/test\/badge\.svg\?branch=master\)\]\(https:\/\/coveralls\.io\/github\/test\/test\?branch=master\)/);
 	assert.fileContent('.travis.yml', /after_success: npm run coveralls/);
+});
+
+test.serial('update notifier option', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'test',
+		githubUsername: 'test',
+		website: 'test.com',
+		cli: false,
+		babel: false,
+		nyc: false,
+		coveralls: true,
+		updateNotifier: true
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.fileContent('package.json', /"update-notifier"\: "*"/);
+	assert.fileContent('index.js', /var updateNotifier = require\('update-notifier'\)/);
+	assert.fileContent('index.js', /var pkg = require\('\.\/package\.json'\)/);
+	assert.fileContent('index.js', /updateNotifier\(\{pkg\}\)\.notify\(\)/);
 });

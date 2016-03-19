@@ -37,6 +37,8 @@
     "meow": "^3.7.0"
     <% } else if (babel) { %>
     "babel-runtime": "^5.8.29"
+    <% } else if (updateNotifier) { %>
+    "update-notifier": "*"
     <% } %>
   },
   "devDependencies": {

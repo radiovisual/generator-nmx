@@ -46,6 +46,11 @@ module.exports = yeoman.Base.extend({
 			message: 'Do you want to use coveralls?',
 			type: 'confirm',
 			default: false
+		}, {
+			name: 'updateNotifier',
+			message: 'Do you want to add update-notifier?',
+			type: 'confirm',
+			default: false
 		}], props => {
 			const tpl = {
 				moduleName: props.moduleName,
@@ -59,7 +64,8 @@ module.exports = yeoman.Base.extend({
 				cli: props.cli,
 				nyc: props.nyc,
 				coveralls: props.coveralls,
-				babel: props.babel
+				babel: props.babel,
+				updateNotifier: props.updateNotifier
 			};
 
 			const mv = (from, to) => {
