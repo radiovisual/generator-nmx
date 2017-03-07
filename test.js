@@ -18,7 +18,6 @@ test.serial('generates expected files', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		nyc: false,
 		coveralls: false,
 		updateNotifier: false
 	});
@@ -49,7 +48,6 @@ test.serial('CLI option', async () => {
 		website: 'test.com',
 		cli: true,
 		babel: false,
-		nyc: false,
 		coveralls: false,
 		updateNotifier: false
 	});
@@ -70,7 +68,6 @@ test.serial('babel option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: true,
-		nyc: false,
 		coveralls: false,
 		updateNotifier: false
 	});
@@ -95,7 +92,6 @@ test.serial('nyc option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		nyc: true,
 		coveralls: false,
 		updateNotifier: false
 	});
@@ -116,7 +112,6 @@ test.serial('coveralls option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		nyc: false,
 		coveralls: true,
 		updateNotifier: false
 	});
@@ -137,7 +132,6 @@ test.serial('update notifier option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		nyc: false,
 		coveralls: true,
 		updateNotifier: true
 	});

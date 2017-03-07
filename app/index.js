@@ -37,11 +37,6 @@ module.exports = yeoman.Base.extend({
 			type: 'confirm',
 			default: false
 		}, {
-			name: 'nyc',
-			message: 'Do you need code coverage (nyc)?',
-			type: 'confirm',
-			default: false
-		}, {
 			name: 'coveralls',
 			message: 'Do you want to use coveralls?',
 			type: 'confirm',
