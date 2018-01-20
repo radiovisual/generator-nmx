@@ -4,8 +4,4 @@ node_js:
   - 'stable'
   - 8
   - 6
-install:
-  - npm install -g codecov
-script:
-  - jest && codecov
-  - codecov
+  
