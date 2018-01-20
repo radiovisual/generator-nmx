@@ -1,4 +1,4 @@
-# <%= moduleName %> [![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= moduleName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= moduleName %>) <% if (coveralls) { %>[![Coverage Status](https://coveralls.io/repos/github/<%= githubUsername %>/<%= moduleName %>/badge.svg?branch=master)](https://coveralls.io/github/<%= githubUsername %>/<%= moduleName %>?branch=master)<% } %>
+# <%= repoName %> [![Build Status](https://travis-ci.org/<%= githubUsername %>/<%= repoName %>.svg?branch=master)](https://travis-ci.org/<%= githubUsername %>/<%= repoName %>)<% if (codecov) { %> [![codecov](https://codecov.io/gh/<%= githubUsername %>/<%= repoName %>/badge.svg?branch=master)](https://codecov.io/gh/<%= githubUsername %>/<%= repoName %>?branch=master)<% } %>
 
 > My <%= superb %> module
 
@@ -6,14 +6,14 @@
 ## Install
 
 ```
-$ npm install --save <%= moduleName %>
+$ npm install --save <%= repoName %>
 ```
 
 
 ## Usage
 
 ```js
-const <%= camelModuleName %> = require('<%= moduleName %>');
+const <%= camelModuleName %> = require('<%= repoName %>');
 
 <%= camelModuleName %>('unicorns');
 //=> 'unicorns & rainbows'
@@ -43,22 +43,22 @@ Lorem ipsum.<% if (cli) { %>
 ## CLI
 
 ```
-$ npm install --global <%= moduleName %>
+$ npm install --global <%= repoName %>
 ```
 
 ```
-$ <%= moduleName %> --help
+$ <%= repoName %> --help
 
   Usage
-    <%= moduleName %> [input]
+    <%= repoName %> [input]
 
   Options
     --foo  Lorem ipsum. [Default: false]
 
   Examples
-    $ <%= moduleName %>
+    $ <%= repoName %>
     unicorns & rainbows
-    $ <%= moduleName %> ponies
+    $ <%= repoName %> ponies
     ponies & rainbows
 ```<% } %>
 

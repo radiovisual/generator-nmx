@@ -18,7 +18,7 @@ test.serial('generates expected files', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		coveralls: false,
+		codecov: false,
 		updateNotifier: false
 	});
 
@@ -48,7 +48,7 @@ test.serial('CLI option', async () => {
 		website: 'test.com',
 		cli: true,
 		babel: false,
-		coveralls: false,
+		codecov: false,
 		updateNotifier: false
 	});
 
@@ -68,15 +68,15 @@ test.serial('babel option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: true,
-		coveralls: false,
+		codecov: false,
 		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
 
 	assert.file('lib/index.js');
-	assert.fileContent('package.json', /"babel-runtime": "\^5\.8\.29"/);
-	assert.fileContent('package.json', /"babel": "\^5\.8\.23"/);
+	assert.fileContent('package.json', /"babel-runtime": "*"/);
+	assert.fileContent('package.json', /"babel": "*"/);
 	assert.fileContent('package.json', /"test": "xo && npm run build && jest"/);
 	assert.fileContent('package.json', /"build": "babel lib --out-dir=dist --optional=runtime"/);
 	assert.fileContent('.gitignore', /dist/);
@@ -85,23 +85,22 @@ test.serial('babel option', async () => {
 	assert.noFile('index.js');
 });
 
-test.serial('coveralls option', async () => {
+test.serial('codecov option', async () => {
 	helpers.mockPrompt(generator, {
 		moduleName: 'test',
 		githubUsername: 'test',
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		coveralls: true,
+		codecov: true,
 		updateNotifier: false
 	});
 
 	await pify(generator.run.bind(generator))();
 
-	assert.fileContent('package.json', /"coveralls": "\^2\.11\.6"/);
-	assert.fileContent('package.json', /"coveralls": "nyc report --reporter=text-lcov | coveralls"/);
-	assert.fileContent('readme.md', /\[!\[Coverage Status\]\(https:\/\/coveralls\.io\/repos\/github\/test\/test\/badge\.svg\?branch=master\)\]\(https:\/\/coveralls\.io\/github\/test\/test\?branch=master\)/);
-	assert.fileContent('.travis.yml', /after_success: npm run coveralls/);
+	assert.fileContent('package.json', /"codecov": "*"/);
+	assert.fileContent('readme.md', /codecov/);
+	assert.fileContent('.travis.yml', /- npm install -g codecov/);
 	assert.noFileContent('package.json', /"update-notifier": "*"/);
 });
 
@@ -112,7 +111,7 @@ test.serial('update notifier option', async () => {
 		website: 'test.com',
 		cli: false,
 		babel: false,
-		coveralls: true,
+		codecov: true,
 		updateNotifier: true
 	});
 

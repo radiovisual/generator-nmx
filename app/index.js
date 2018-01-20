@@ -2,16 +2,27 @@
 const superb = require('superb');
 const normalizeUrl = require('normalize-url');
 const humanizeUrl = require('humanize-url');
-const yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 const _s = require('underscore.string');
 
-module.exports = yeoman.Base.extend({
-	init() {
-		const cb = this.async();
-		const self = this;
+module.exports = class extends Generator {
+	constructor(a, b) {
+		super(a, b);
 
-		this.prompt([{
-			name: 'moduleName',
+		this.option('cli', {
+			type: 'boolean',
+			desc: 'Add a CLI'
+		});
+
+		this.option('codecov', {
+			type: 'boolean',
+			desc: 'Upload coverage to codecov.io (implies coverage)'
+		});
+	}
+
+	init() {
+		return this.prompt([{
+			name: 'repoName',
 			message: 'What do you want to name your module?',
 			default: this.appname.replace(/\s/g, '-'),
 			filter: x => _s.slugify(x)
@@ -37,8 +48,8 @@ module.exports = yeoman.Base.extend({
 			type: 'confirm',
 			default: false
 		}, {
-			name: 'coveralls',
-			message: 'Do you want to use coveralls?',
+			name: 'codecov',
+			message: 'Do you want to upload coverage to codecov.io?',
 			type: 'confirm',
 			default: false
 		}, {
@@ -46,42 +57,48 @@ module.exports = yeoman.Base.extend({
 			message: 'Do you want to add update-notifier?',
 			type: 'confirm',
 			default: false
-		}], props => {
+		}]).then(props => {
+			const or = (option, prop) => this.options[option] === undefined ? props[prop || option] : this.options[option];
+
+			const cli = or('cli');
+			const codecov = or('codecov');
+			const babel = or('babel');
+			const updateNotifier = or('updateNotifier');
+
 			const tpl = {
-				moduleName: props.moduleName,
-				camelModuleName: _s.camelize(props.moduleName),
+				repoName: props.repoName,
+				camelModuleName: _s.camelize(props.repoName),
 				githubUsername: props.githubUsername,
-				name: self.user.git.name(),
-				email: self.user.git.email(),
+				name: this.user.git.name(),
+				email: this.user.git.email(),
 				website: props.website,
 				humanizedWebsite: humanizeUrl(props.website),
 				superb: superb(),
-				cli: props.cli,
-				nyc: props.nyc,
-				coveralls: props.coveralls,
-				babel: props.babel,
-				updateNotifier: props.updateNotifier
+				cli,
+				codecov,
+				babel,
+				updateNotifier
 			};
 
 			const mv = (from, to) => {
-				self.fs.move(self.destinationPath(from), self.destinationPath(to));
+				this.fs.move(this.destinationPath(from), this.destinationPath(to));
 			};
 
-			self.fs.copyTpl([
-				`${self.templatePath()}/**`,
+			this.fs.copyTpl([
+				`${this.templatePath()}/**`,
 				'!**/cli.js',
 				'!**/lib',
 				'!**/index.js'
-			], self.destinationPath(), tpl);
+			], this.destinationPath(), tpl);
 
-			if (props.babel) {
-				self.fs.copyTpl(self.templatePath('lib'), self.destinationPath('lib'), tpl);
+			if (babel) {
+				this.fs.copyTpl(this.templatePath('lib'), this.destinationPath('lib'), tpl);
 			} else {
-				self.fs.copyTpl(self.templatePath('index.js'), self.destinationPath('index.js'), tpl);
+				this.fs.copyTpl(this.templatePath('index.js'), this.destinationPath('index.js'), tpl);
 			}
 
-			if (props.cli) {
-				self.fs.copyTpl(self.templatePath('cli.js'), self.destinationPath('cli.js'), tpl);
+			if (cli) {
+				this.fs.copyTpl(this.templatePath('cli.js'), this.destinationPath('cli.js'), tpl);
 			}
 
 			mv('editorconfig', '.editorconfig');
@@ -89,14 +106,14 @@ module.exports = yeoman.Base.extend({
 			mv('gitignore', '.gitignore');
 			mv('travis.yml', '.travis.yml');
 			mv('_package.json', 'package.json');
-
-			cb();
 		});
-	},
+	}
+
 	git() {
 		this.spawnCommandSync('git', ['init']);
-	},
+	}
+
 	install() {
 		this.installDependencies({bower: false});
 	}
-});
+};

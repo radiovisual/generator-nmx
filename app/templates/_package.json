@@ -1,9 +1,9 @@
 {
-  "name": "<%= moduleName %>",
+  "name": "<%= repoName %>",
   "version": "0.0.0",
   "description": "My <%= superb %> module",
   "license": "MIT",
-  "repository": "<%= githubUsername %>/<%= moduleName %>",
+  "repository": "<%= githubUsername %>/<%= repoName %>",
   "author": {
     "name": "<%= name %>",
     "email": "<%= email %>",
@@ -11,12 +11,11 @@
   },<% if (cli) { %>
   "bin": "cli.js",<% } %>
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
   "scripts": {
-    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest"<% if (babel) { %>,
-    "build": "babel lib --out-dir=dist --optional=runtime"<% } %><% if (coveralls) { %>,
-    "coveralls": "jest --coverage && nyc report --temp-directory=coverage --reporter=text-lcov | coveralls"<% } %>
+    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest<% if (codecov) { %> && codecov<% } %>"<% if (babel) { %>,
+    "build": "babel lib --out-dir=dist --optional=runtime"<% } %>
   },
   "files": [<% if (babel) { %>
     "dist"<% if (cli) { %>,<% } %>
@@ -31,26 +30,28 @@
     ""
   ],
   "dependencies": {<% if (cli && babel) { %>
-    "meow": "^3.7.0",
-    "babel-runtime": "^5.8.29"
+    "meow": "*",
+    "babel-runtime": "*"
     <% } else if (cli) { %>
-    "meow": "^3.7.0"
+    "meow": "*"
     <% } else if (babel) { %>
-    "babel-runtime": "^5.8.29"
+    "babel-runtime": "*"
     <% } else if (updateNotifier) { %>
     "update-notifier": "*"
     <% } %>
   },
   "devDependencies": {
-    "jest": "^19.0.2",
-    "xo": "^0.12.1"<% if (babel) { %>,
-    "babel": "^5.8.23"<% } %> <% if (coveralls) { %>,
-    "coveralls": "^2.11.6"<% } %>
+    "jest": "*",
+    "xo": "*"<% if (babel) { %>,
+    "babel": "*"<% } %> <% if (codecov) { %>,
+    "codecov": "*"<% } %>
   }<% if (babel) { %>,
   "xo": {
     "esnext": true,
     "ignores": [
       "dist/**"
-  ]}
+  ]}<% } %><% if (codecov) { %>,
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   <% } %>
 }

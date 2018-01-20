@@ -1,6 +1,5 @@
-node_modules<% if (nyc) { %>
-.nyc_output
-coverage<% } %><% if (babel) { %>
+node_modules
+coverage<% if (babel) { %>
 dist<% } %>
 
 
