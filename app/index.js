@@ -49,7 +49,7 @@ module.exports = class extends Generator {
 			default: false
 		}, {
 			name: 'codecov',
-			message: 'Do you want to upload coverage to codecov.io?',
+			message: 'Do you want to add code coverages (coveralls.io)?',
 			type: 'confirm',
 			default: false
 		}, {

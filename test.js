@@ -88,8 +88,8 @@ test.serial('babel option', async () => {
 
 test.serial('codecov option', async () => {
 	helpers.mockPrompt(generator, {
-		moduleName: 'test',
-		githubUsername: 'test',
+		moduleName: 'foo',
+		githubUsername: 'radiovisual',
 		website: 'test.com',
 		cli: false,
 		babel: false,
@@ -99,10 +99,29 @@ test.serial('codecov option', async () => {
 
 	await pify(generator.run.bind(generator))();
 
-	assert.fileContent('package.json', /"codecov": "*"/);
-	assert.fileContent('readme.md', /codecov/);
-	assert.fileContent('.travis.yml', /- npm install -g codecov/);
-	assert.noFileContent('package.json', /"update-notifier": "*"/);
+	assert.fileContent('package.json', /"coveralls": "*"/);
+	assert.fileContent('package.json', /"collectCoverage": true/);
+	assert.fileContent('readme.md', 'https://coveralls.io/repos/github/radiovisual');
+	assert.fileContent('.travis.yml', '- cat ./coverage/lcov.info | coveralls');
+});
+
+test.serial('no codecoverage option', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'foo',
+		githubUsername: 'radiovisual',
+		website: 'test.com',
+		cli: false,
+		babel: false,
+		codecov: false,
+		updateNotifier: false
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.noFileContent('package.json', /"coveralls": "*"/);
+	assert.noFileContent('package.json', /"collectCoverage": true/);
+	assert.noFileContent('readme.md', 'https://coveralls.io/repos/github/radiovisual');
+	assert.noFileContent('.travis.yml', '- cat ./coverage/lcov.info | coveralls');
 });
 
 test.serial('update notifier option', async () => {

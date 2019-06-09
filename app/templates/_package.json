@@ -14,7 +14,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest<% if (codecov) { %> && codecov<% } %>"<% if (babel) { %>,
+    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest"<% if (babel) { %>,
     "build": "babel lib --out-dir=dist --optional=runtime"<% } %>
   },
   "files": [<% if (babel) { %>
@@ -44,14 +44,23 @@
     "jest": "*",
     "xo": "*"<% if (babel) { %>,
     "babel": "*"<% } %> <% if (codecov) { %>,
-    "codecov": "*"<% } %>
+    "coveralls": "*"<% } %>
   }<% if (babel) { %>,
   "xo": {
     "esnext": true,
     "ignores": [
       "dist/**"
   ]}<% } %><% if (codecov) { %>,
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "index.js",
+      "!/node_modules/**"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ]
+  }
   <% } %>
 }
