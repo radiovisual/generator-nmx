@@ -30,6 +30,7 @@ test.serial('generates expected files', async () => {
 		'.gitattributes',
 		'.gitignore',
 		'.travis.yml',
+		'.npmrc',
 		'index.js',
 		'license',
 		'package.json',
