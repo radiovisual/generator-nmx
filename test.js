@@ -62,6 +62,39 @@ test.serial('CLI option', async () => {
 	assert.noFileContent('package.json', /"update-notifier": "*"/);
 });
 
+test.serial('prompts for description', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'test',
+		moduleDescription: 'foo',
+		githubUsername: 'test',
+		website: 'test.com',
+		cli: false,
+		nyc: true,
+		codecov: true
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.fileContent('package.json', /"description": "foo",/);
+	assert.fileContent('readme.md', /> foo/);
+});
+
+test.serial('defaults to superb description', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'test',
+		githubUsername: 'test',
+		website: 'test.com',
+		cli: false,
+		nyc: true,
+		codecov: true
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.fileContent('package.json', /"description": "My .+ module",/);
+	assert.fileContent('readme.md', /> My .+ module/);
+});
+
 test.serial('babel option', async () => {
 	helpers.mockPrompt(generator, {
 		moduleName: 'test',

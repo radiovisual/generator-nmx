@@ -27,6 +27,10 @@ module.exports = class extends Generator {
 			default: this.appname.replace(/\s/g, '-'),
 			filter: x => _s.slugify(x)
 		}, {
+			name: 'moduleDescription',
+			message: 'What is your module description?',
+			default: `My ${superb()} module`
+		}, {
 			name: 'githubUsername',
 			message: 'What is your GitHub username?',
 			store: true,
@@ -68,12 +72,12 @@ module.exports = class extends Generator {
 			const tpl = {
 				repoName: props.repoName,
 				camelModuleName: _s.camelize(props.repoName),
+				moduleDescription: props.moduleDescription,
 				githubUsername: props.githubUsername,
 				name: this.user.git.name(),
 				email: this.user.git.email(),
 				website: props.website,
 				humanizedWebsite: humanizeUrl(props.website),
-				superb: superb(),
 				cli,
 				codecov,
 				babel,
