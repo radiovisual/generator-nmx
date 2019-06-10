@@ -1,7 +1,7 @@
 {
   "name": "generator-nmx",
   "version": "1.1.2",
-  "description": "Scaffold out a node module with jest (+ optional babel, update-notifier, codecov)",
+  "description": "Scaffold out a node module with Jest with optional babel, update-notifier and codecov",
   "license": "MIT",
   "repository": "radiovisual/generator-nmx",
   "author": {
