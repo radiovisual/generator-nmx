@@ -132,10 +132,10 @@ test.serial('codecov option', async () => {
 
 	await pify(generator.run.bind(generator))();
 
-	assert.fileContent('package.json', /"coveralls": "*"/);
+	assert.fileContent('package.json', /"codecov": "*"/);
 	assert.fileContent('package.json', /"collectCoverage": true/);
-	assert.fileContent('readme.md', 'https://coveralls.io/repos/github/radiovisual');
-	assert.fileContent('.travis.yml', '- cat ./coverage/lcov.info | coveralls');
+	assert.fileContent('readme.md', '[![codecov](https://codecov.io/gh');
+	assert.fileContent('.travis.yml', './node_modules/.bin/codecov');
 });
 
 test.serial('no codecoverage option', async () => {
@@ -151,10 +151,10 @@ test.serial('no codecoverage option', async () => {
 
 	await pify(generator.run.bind(generator))();
 
-	assert.noFileContent('package.json', /"coveralls": "*"/);
+	assert.noFileContent('package.json', /"codecov": "*"/);
 	assert.noFileContent('package.json', /"collectCoverage": true/);
-	assert.noFileContent('readme.md', 'https://coveralls.io/repos/github/radiovisual');
-	assert.noFileContent('.travis.yml', '- cat ./coverage/lcov.info | coveralls');
+	assert.noFileContent('readme.md', '[![codecov](https://codecov.io/gh');
+	assert.noFileContent('.travis.yml', './node_modules/.bin/codecov');
 });
 
 test.serial('update notifier option', async () => {

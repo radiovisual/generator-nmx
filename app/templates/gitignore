@@ -1,7 +1,6 @@
 node_modules
 yarn.lock
-package-lock.json
-coverage<% if (babel) { %>
+package-lock.json<% if (codecov) { %>
+coverage<% } %>
+<% if (babel) { %>
 dist<% } %>
-
-

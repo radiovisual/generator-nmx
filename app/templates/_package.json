@@ -44,7 +44,7 @@
     "jest": "*",
     "xo": "*"<% if (babel) { %>,
     "babel": "*"<% } %> <% if (codecov) { %>,
-    "coveralls": "*"<% } %>
+    "codecov": "*"<% } %>
   }<% if (babel) { %>,
   "xo": {
     "esnext": true,
@@ -53,9 +53,10 @@
   ]}<% } %><% if (codecov) { %>,
   "jest": {
     "collectCoverage": true,
+    "coverageDirectory": "./coverage/",
     "collectCoverageFrom": [
-      "index.js",
-      "!/node_modules/**"
+      "**/*.{js,jsx}",
+      "!**/node_modules/**"
     ],
     "coverageReporters": [
       "lcov",
