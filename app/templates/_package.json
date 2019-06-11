@@ -1,7 +1,7 @@
 {
   "name": "<%= repoName %>",
   "version": "0.0.0",
-  "description": "My <%= superb %> module",
+  "description": "<%= moduleDescription %>",
   "license": "MIT",
   "repository": "<%= githubUsername %>/<%= repoName %>",
   "author": {
@@ -14,7 +14,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest<% if (codecov) { %> && codecov<% } %>"<% if (babel) { %>,
+    "test": "xo && <% if (babel) { %>npm run build && <% } %>jest"<% if (babel) { %>,
     "build": "babel lib --out-dir=dist --optional=runtime"<% } %>
   },
   "files": [<% if (babel) { %>
@@ -51,7 +51,17 @@
     "ignores": [
       "dist/**"
   ]}<% } %><% if (codecov) { %>,
+  "jest": {
+    "collectCoverage": true,
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ]
+  }
   <% } %>
 }

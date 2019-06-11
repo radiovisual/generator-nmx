@@ -30,6 +30,7 @@ test.serial('generates expected files', async () => {
 		'.gitattributes',
 		'.gitignore',
 		'.travis.yml',
+		'.npmrc',
 		'index.js',
 		'license',
 		'package.json',
@@ -61,6 +62,39 @@ test.serial('CLI option', async () => {
 	assert.noFileContent('package.json', /"update-notifier": "*"/);
 });
 
+test.serial('prompts for description', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'test',
+		moduleDescription: 'foo',
+		githubUsername: 'test',
+		website: 'test.com',
+		cli: false,
+		nyc: true,
+		codecov: true
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.fileContent('package.json', /"description": "foo",/);
+	assert.fileContent('readme.md', /> foo/);
+});
+
+test.serial('defaults to superb description', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'test',
+		githubUsername: 'test',
+		website: 'test.com',
+		cli: false,
+		nyc: true,
+		codecov: true
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.fileContent('package.json', /"description": "My .+ module",/);
+	assert.fileContent('readme.md', /> My .+ module/);
+});
+
 test.serial('babel option', async () => {
 	helpers.mockPrompt(generator, {
 		moduleName: 'test',
@@ -87,8 +121,8 @@ test.serial('babel option', async () => {
 
 test.serial('codecov option', async () => {
 	helpers.mockPrompt(generator, {
-		moduleName: 'test',
-		githubUsername: 'test',
+		moduleName: 'foo',
+		githubUsername: 'radiovisual',
 		website: 'test.com',
 		cli: false,
 		babel: false,
@@ -99,9 +133,28 @@ test.serial('codecov option', async () => {
 	await pify(generator.run.bind(generator))();
 
 	assert.fileContent('package.json', /"codecov": "*"/);
-	assert.fileContent('readme.md', /codecov/);
-	assert.fileContent('.travis.yml', /- npm install -g codecov/);
-	assert.noFileContent('package.json', /"update-notifier": "*"/);
+	assert.fileContent('package.json', /"collectCoverage": true/);
+	assert.fileContent('readme.md', '[![codecov](https://codecov.io/gh');
+	assert.fileContent('.travis.yml', './node_modules/.bin/codecov');
+});
+
+test.serial('no codecoverage option', async () => {
+	helpers.mockPrompt(generator, {
+		moduleName: 'foo',
+		githubUsername: 'radiovisual',
+		website: 'test.com',
+		cli: false,
+		babel: false,
+		codecov: false,
+		updateNotifier: false
+	});
+
+	await pify(generator.run.bind(generator))();
+
+	assert.noFileContent('package.json', /"codecov": "*"/);
+	assert.noFileContent('package.json', /"collectCoverage": true/);
+	assert.noFileContent('readme.md', '[![codecov](https://codecov.io/gh');
+	assert.noFileContent('.travis.yml', './node_modules/.bin/codecov');
 });
 
 test.serial('update notifier option', async () => {

@@ -1,6 +1,6 @@
 # generator-nmx [![Build Status](https://travis-ci.org/radiovisual/generator-nmx.svg?branch=master)](https://travis-ci.org/radiovisual/generator-nmx)
 
-> Scaffold out a node module with jest (+ optional babel, update-notifier, codecov)
+> Scaffold out a node module with Jest with optional babel, update-notifier and codecov
 
 This generator is based off of [this awesome node module generator](https://github.com/sindresorhus/generator-nm), but I needed some extra configuration options when scaffolding out large node modules, and I wanted to change the test runner to use Jest.
 
