@@ -4,14 +4,15 @@
   "description": "<%= moduleDescription %>",
   "license": "MIT",
   "repository": "<%= githubUsername %>/<%= repoName %>",
+  "type": "module",
   "author": {
     "name": "<%= name %>",
     "email": "<%= email %>",
-    "url": "<%= humanizedWebsite %>"
+    "url": "<%= website %>"
   },<% if (cli) { %>
   "bin": "cli.js",<% } %>
   "engines": {
-    "node": ">=4"
+    "node": ">=18"
   },
   "scripts": {
     "test": "xo && <% if (babel) { %>npm run build && <% } %>jest"<% if (babel) { %>,

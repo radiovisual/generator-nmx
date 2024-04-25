@@ -1,4 +1,4 @@
-# generator-nmx [![Build Status](https://travis-ci.org/radiovisual/generator-nmx.svg?branch=master)](https://travis-ci.org/radiovisual/generator-nmx)
+# generator-nmx [![CI](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml/badge.svg)](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml)
 
 > Scaffold out a node module with Jest with optional babel, update-notifier and codecov
 
@@ -17,7 +17,6 @@ This generator is based off of [this awesome node module generator](https://gith
 $ npm install --global generator-nmx
 ```
 
-
 ## Usage
 
 With [yo](https://github.com/yeoman/yo):
@@ -26,12 +25,10 @@ With [yo](https://github.com/yeoman/yo):
 $ yo nmx
 ```
 
-
 ## Tip
 
 Use [chalk](https://github.com/sindresorhus/chalk) if you want colors in your CLI.
 
-
 ## License
 
-MIT @ [Michael Wuergler](http://numetriclabs.com/)
+MIT @ [Michael Wuergler](https://github.com/radiovisual)
