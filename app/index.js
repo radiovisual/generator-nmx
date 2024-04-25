@@ -48,12 +48,6 @@ module.exports = class extends Generator {
 				filter: x => normalizeUrl(x),
 			},
 			{
-				name: 'babel',
-				message: 'Do you want to add the babel-runtime for ES6 support?',
-				type: 'confirm',
-				default: false,
-			},
-			{
 				name: 'cli',
 				message: 'Do you need a CLI?',
 				type: 'confirm',
@@ -65,12 +59,6 @@ module.exports = class extends Generator {
 				type: 'confirm',
 				default: false,
 			},
-			{
-				name: 'updateNotifier',
-				message: 'Do you want to add update-notifier?',
-				type: 'confirm',
-				default: false,
-			},
 		]).then(properties => {
 			const or = (option, property) =>
 				this.options[option] === undefined
@@ -79,8 +67,6 @@ module.exports = class extends Generator {
 
 			const cli = or('cli');
 			const codecov = or('codecov');
-			const babel = or('babel');
-			const updateNotifier = or('updateNotifier');
 
 			const tpl = {
 				repoName: properties.repoName,
@@ -92,8 +78,6 @@ module.exports = class extends Generator {
 				website: properties.website,
 				cli,
 				codecov,
-				babel,
-				updateNotifier,
 			};
 
 			const mv = (from, to) => {
@@ -101,24 +85,16 @@ module.exports = class extends Generator {
 			};
 
 			this.fs.copyTpl(
-				[`${this.templatePath()}/**`, '!**/cli.js', '!**/lib', '!**/index.js'],
+				[`${this.templatePath()}/**`, '!**/cli.js', '!**/index.js'],
 				this.destinationPath(),
 				tpl,
 			);
 
-			if (babel) {
-				this.fs.copyTpl(
-					this.templatePath('lib'),
-					this.destinationPath('lib'),
-					tpl,
-				);
-			} else {
-				this.fs.copyTpl(
-					this.templatePath('index.js'),
-					this.destinationPath('index.js'),
-					tpl,
-				);
-			}
+			this.fs.copyTpl(
+				this.templatePath('index.js'),
+				this.destinationPath('index.js'),
+				tpl,
+			);
 
 			if (cli) {
 				this.fs.copyTpl(
@@ -142,6 +118,6 @@ module.exports = class extends Generator {
 	}
 
 	install() {
-		this.installDependencies({bower: false});
+		this.installDependencies({bower: false, npm: true});
 	}
 };
