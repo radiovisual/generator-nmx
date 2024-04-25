@@ -20,9 +20,8 @@ With [yo](https://github.com/yeoman/yo):
 $ yo nmx
 ```
 
-## Tip
-
-Use [chalk](https://github.com/sindresorhus/chalk) if you want colors in your CLI.
+> [!TIP]
+> Use [chalk](https://github.com/sindresorhus/chalk) if you want colors in your CLI.
 
 ---
 
