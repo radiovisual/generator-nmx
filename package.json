@@ -1,9 +1,12 @@
 {
 	"name": "generator-nmx",
 	"version": "2.0.0",
-	"description": "Scaffold out a node module.",
+	"description": "Scaffold out a node module in jest",
 	"license": "MIT",
-	"repository": "radiovisual/generator-nmx",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/radiovisual/generator-nmx.git"
+	},
 	"author": {
 		"name": "Michael Wuergler",
 		"email": "wuergler@gmail.com",

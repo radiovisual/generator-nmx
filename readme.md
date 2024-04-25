@@ -1,6 +1,6 @@
 # generator-nmx [![CI](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml/badge.svg)](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml)
 
-> Scaffold out a node module.
+> Scaffold out a node module with jest.
 
 This generator is based off of [this awesome node module generator](https://github.com/sindresorhus/generator-nm), with some key changes.
 
@@ -24,6 +24,6 @@ $ yo nmx
 
 Use [chalk](https://github.com/sindresorhus/chalk) if you want colors in your CLI.
 
-## License
+---
 
-MIT @ [Michael Wuergler](https://github.com/radiovisual)
+:rainbow: :heart:
