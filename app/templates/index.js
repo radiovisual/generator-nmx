@@ -1,16 +1,13 @@
-'use strict';
 <% if (updateNotifier) { %>
-var updateNotifier = require('update-notifier');
-var pkg = require('./package.json');
+const updateNotifier = require('update-notifier');
+const pkg = require('./package.json');
 updateNotifier({pkg}).notify();
 <% } %>
 
-module.exports = function (str, opts) {
+export default function temporaryFunction(str, {postfix = 'rainbows'} = {}) {
 	if (typeof str !== 'string') {
 		throw new TypeError('Expected a string');
 	}
 
-	opts = opts || {};
-
-	return str + ' & ' + (opts.postfix || 'rainbows');
+	return `${input} & ${postfix}`;
 };
