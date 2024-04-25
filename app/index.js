@@ -133,6 +133,7 @@ module.exports = class extends Generator {
 			mv('gitignore', '.gitignore');
 			mv('npmrc', '.npmrc');
 			mv('_package.json', 'package.json');
+			mv('github/workflows/main.yml', '.github/workflows/main.yml');
 		});
 	}
 

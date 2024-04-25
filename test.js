@@ -30,6 +30,7 @@ test('generates expected files', async () => {
 		'package.json',
 		'readme.md',
 		'__tests__/test.js',
+		'.github/workflows/main.yml',
 	]);
 
 	assert.noFile('cli.js');
