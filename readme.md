@@ -1,13 +1,8 @@
 # generator-nmx [![CI](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml/badge.svg)](https://github.com/radiovisual/generator-nmx/actions/workflows/main.yml)
 
-> Scaffold out a node module with Jest with optional babel, update-notifier and codecov
+> Scaffold out a node module.
 
-This generator is based off of [this awesome node module generator](https://github.com/sindresorhus/generator-nm), but I needed some extra configuration options when scaffolding out large node modules, and I wanted to change the test runner to use Jest.
-
-- [x] Option to include [codecov](https://codecov.io) for test coverage
-- [x] Option to include [babel](https://babeljs.io/) and the [babel-runtime](https://www.npmjs.com/package/babel-runtime) for ES6 support
-- [x] Option to include [update-notifier](https://github.com/yeoman/update-notifier)
-- [x] Uses [Jest](https://github.com/facebook/jest) for the test runner
+This generator is based off of [this awesome node module generator](https://github.com/sindresorhus/generator-nm), with some key changes.
 
 ![screenshot](screenshot.png)
 
